@@ -1,0 +1,298 @@
+---
+title: (pixi + npm) au lieu de (conda + pip + npm)
+description: setup alternatif à conda avec pixi
+---
+
+import { Image } from 'astro:assets'
+import { Tabs, TabItem } from '@astrojs/starlight/components'
+import { Steps } from '@astrojs/starlight/components'
+import Admonition from '@components/Admonition.astro'
+import SidebarToggle from '@components/SidebarToggle.astro'
+import LabeledLink from '@components/LabeledLink.astro'
+
+<SidebarToggle />
+
+<Admonition type="caution" title="setup expérimental">
+<img src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3anFnZnYza3hyZWJibW8zZzU4cjYwaWtvMHA5MjBvYWFjbzB0dXc5eiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/PPleene8JaXmqdI0BH/giphy.gif"
+width="100" alt="work in progress" style="float:right; margin: 0 0 0.5em 1em" data-zoom-off/>
+malheureusement, sur Windows **`pixi` n'est pas compatible avec `git bash`** !  
+ce qui suit est donc à considérer comme un setup alternatif, et accessible aux étudiants avancés sur Mac et Linux;
+mais pour les étudiants sur Windows, on continuera à utiliser `conda` et `pip` pour le moment
+</Admonition>
+
+## propos
+
+### est-ce que `conda` c'est le top ?
+
+`conda` existe depuis très longtemps; c'est un avantage car il est très utilisé
+et donc bien connu, et relativement stable également  
+toutefois son âge commence à se faire sentir, et le développeur exigeant peut avoir
+envie d'utiliser des outils plus modernes qui auraient moins d'inconvénients
+
+quels inconvénients me direz-vous ? le principal est sans aucun doute **la lenteur !**  
+la création d'un environnement virtuel avec conda est une opération très lourde,
+du coup on prend facilement l'habitude .. de le faire le moins possible; or il
+se trouve qu'il existe à présent des **alternatives beaucoup plus efficaces**
+pour cela, et c'est le but ici
+
+### et `pip` alors ?
+
+c'est un peu la même histoire avec `pip`, il existe aujourd'hui des
+alternatives qui rendent en gros le même service, mais qui sont beaucoup plus efficaces
+
+### remplacer `conda` par `pixi`
+
+à quoi nous sert `conda` finalement ?  
+essentiellement pour ce qui nous concerne, on s'en sert pour créer des
+environnements virtuels dans lesquels on peut mettre, par exemple `python-3.13`,
+ou `node-24`
+
+`pixi` est un outil écrit en Rust, très rapide et moderne, qui utilise la même
+infrastructure que conda mais en - beaucoup - plus efficace. On peut donc entre
+autres s'en servir pour installer différentes versions des langages de
+développement les plus répandus.
+
+la logique consiste à pouvoir dire par exemple  
+> dans le dossier `/un/dossier` (et ses descendants), si je tape `python` ça veut
+dire la version 3.14 et si je tape `node` ça veut dire la version 24
+
+<Admonition title="pas tout à fait ça..." type="caution" collapsible> 
+
+en pratique on n'obtient ce comportement qu'après avoir aussi installé `direnv`;
+mais bon c'est l'idée générale tout de même
+</Admonition>
+
+et bien sûr on peut faire ça dans autant de dossiers qu'on veut  
+de cette façon, il suffit de changer de dossier pour changer de version !
+
+### pixi utilise `uv` pour remplacer `pip`
+
+sous le capot, `pixi` utilise `uv`, un outil spécifique à Python; il s'agit d'un
+gestionnaire de librairies Python ultra-rapide, écrit également en Rust; il offre
+une alternative beaucoup plus efficace à `pip` tout en restant compatible avec
+l'écosystème Python existant
+
+essentiellement `uv` va créer un environnement virtuel qui est associé, lui
+aussi, au dossier courant
+
+## pour les installer
+
+### `pixi`
+
+<Admonition title="on installe" collapsible>
+<Tabs>
+
+<TabItem label="Windows" icon="seti:windows">
+
+<Steps>
+1. installer pixi
+   ```bash
+   powershell -ExecutionPolicy Bypass -c "irm -useb https://pixi.sh/install.ps1 | iex"
+   ```
+{/* 1. activer au démarrage du terminal  
+   par défaut `mise` ne supporte pas le combo `bash`+Windows, on va l'aider un peu
+   ```bash
+   curl -k https://intro.info-mines.paris/code/setup-pixi.sh | bash
+   ``` */}
+</Steps>
+</TabItem>
+
+<TabItem label="Mac" icon="apple">
+<Steps>
+1. installer pixi
+   ```bash
+   curl -fsSL https://pixi.sh/install.sh | sh
+   ```
+{/* 2. activer au démarrage du terminal
+   ```bash
+   curl -k https://intro.info-mines.paris/code/setup-pixi.sh | bash
+   ``` */}
+</Steps>
+</TabItem>
+
+<TabItem label="Linux" icon="linux">
+<Steps>
+1. installer
+   ```bash
+   curl -fsSL https://pixi.sh/install.sh | sh
+   ```
+{/* 2. activer au démarrage du terminal
+   ```bash
+   curl -k https://intro.info-mines.paris/code/setup-pixi.sh | bash
+   ``` */}
+</Steps>
+</TabItem>
+
+</Tabs>
+</Admonition>
+
+<Admonition title="on vérifie pixi (tous OS)" type="caution" collapsible>
+
+comme d'hab: n'oubliez pas de relancer un nouveau terminal
+
+```bash
+pixi --version
+```
+</Admonition>
+
+### `direnv`
+
+<Admonition title="à quoi ça sert ?" type="caution" collapsible>
+un autre inconvénient avec `conda`, c'est la nécessité de faire explicitement le
+`conda activate` qui va bien; c'est un peu lourd, et on peut facilement oublier de le faire !
+
+il existe une alternative, `direnv`, qui permet d'automatiser l'activation de
+l'environnement; ça demande un peu de setup initial, mais le retour sur
+investissement est rapide !
+
+l'idée consiste à faire en sorte que l'activation soit déclenchée par un simple
+changement de dossier courant (un `cd`, quoi)
+</Admonition>
+
+<Admonition title="on installe direnv" collapsible>
+<Steps>
+1. <Tabs>
+   <TabItem label="Windows" icon="seti:windows">
+   ```bash
+   # Windows
+   winget install direnv.direnv
+   ```
+   </TabItem>
+   <TabItem label="Mac" icon="apple">
+   ```bash
+   # macOS
+   brew install direnv
+   ```
+   </TabItem>
+   <TabItem label="Linux" icon="linux">
+   ```bash
+   # Linux (Debian/Ubuntu)
+   sudo apt install direnv
+   ```
+   </TabItem>
+   </Tabs>
+2. configurer le shell pour qu'il utilise `direnv`
+   ```bash
+   cat >> ~/.bashrc << 'EOF'
+   eval "$(direnv hook bash)"
+   EOF
+   ```
+</Steps>
+</Admonition>
+
+<Admonition title="on vérifie direnv (tous OS)" type="caution" collapsible>
+
+comme d'hab: n'oubliez pas de relancer un nouveau terminal
+
+```bash
+direnv --version
+```
+</Admonition>
+
+## un exemple de projet avec pixi
+
+### sans direnv
+
+```bash
+mkdir monprojet
+cd monprojet
+
+# recommended: initialize pixi with conda-forge channel
+pixi init --channel conda-forge
+
+# install python-3.14 and node-24
+pixi add python=3.14 nodejs=24
+
+# add numpy as a Python requirement
+pixi add numpy
+
+# if you need to add a package with 'extras' quantifier
+# you need to use this form - it's safer with quotes around
+pixi add --pypi 'fastapi[standard]'
+
+# add a node dependency - here lodash as an example
+pixi add lodash
+
+# see our requirements
+pixi list --explicit
+
+# now, without direnv, we have two ways to invoke the "right" python and node
+# 1. via 'pixi run'
+pixi run python --version
+pixi run node --version
+
+# 2. via 'pixi shell' to enter a subshell with the right versions
+#    the first line will apparently do nothing
+#    this is because it creates a subshell (a shell within the current shell)
+pixi shell
+python --version
+node --version
+# and when we exit this subshell we are back to the first one
+exit
+```
+
+### avec direnv
+
+le début est le même, mais en configurant `direnv` on peut faire en sorte que
+l'activation des bonnes versions soit automatique à chaque fois qu'on entre dans
+le dossier du projet !
+
+```bash
+mkdir monprojet
+cd monprojet
+
+# recommended: initialize pixi with conda-forge channel
+pixi init --channel conda-forge
+
+# select python-3.14 and node-24
+pixi add python=3.14 nodejs=24
+
+# add numpy as a Python requirement
+pixi add numpy
+
+# if you need to add a package with 'extras' quantifier
+# you need to use this form - it's safer with quotes around
+pixi add --pypi 'fastapi[standard]'
+
+# add a node dependency - here lodash as an example
+pixi add lodash
+
+# see our requirements
+pixi list --explicit
+
+# configure direnv
+cat > .envrc << 'EOF'
+watch_file pixi.lock
+eval "$(pixi shell-hook)"
+EOF
+
+# Allow direnv to load this .envrc
+direnv allow
+
+# et là tout baigne
+python --version
+python -c "import numpy; print(numpy.__version__)"
+```
+
+## le prompt
+
+comme avec `conda`, il est **crucial d'avoir un prompt qui indique l'environnement
+actif**; si nécessaire
+<LabeledLink label="label-starship-setup" file="./1-1-installations">
+voyez ici la section sur le prompt `starship`
+</LabeledLink>
+
+## références
+
+- [la doc de `pixi`](https://pixi.sh/latest/)
+- et notamment [la page pixi sur l'intégration avec direnv](https://pixi.sh/dev/integration/third_party/direnv/)
+- ainsi que [la page pixi sur l'extension `direnv` dans vs-code](https://pixi.sh/dev/integration/editor/vscode/#direnv-extension)
+
+### influences
+
+voyez aussi ces différents outils qui ont certains comportements avec ceux-ci
+
+- `uv` qui est utilisé en sous-main par `pixi` pour la gestion des dépendances Python
+- `npm` pour l'idée d'installer les dépendances tout en les mémorisant dans `package.json`
+- `venv` qui est utilisé en sous-main par `uv` pour les environnements virtuels
+  Python (et qui n'existait pas à l'époque de `conda`)

@@ -1,0 +1,163 @@
+---
+import { Icon } from '@astrojs/starlight/components'
+import type { StarlightIcon } from '@astrojs/starlight/types'
+
+// les types d'admonitions disponibles
+type AdmonitionType = "note" | "tip" | "caution" | "danger";
+
+// l'icône associée à chaque type d'admonition
+const ICON_NAME_BY_TYPE: Record<AdmonitionType, StarlightIcon> = {
+  note: 'information',
+  tip: 'rocket',
+  caution: 'warning',
+  danger: 'error',
+}
+
+interface Props {
+  type?: AdmonitionType;
+  collapsible?: boolean;
+  title?: string;
+  open?: boolean;
+  // pick one from https://starlight.astro.build/reference/icons/#all-icons
+  icon?: string;
+}
+
+const { type = "note", collapsible = false, title, open = false, icon = null } = Astro.props;
+const resolvedTitle = title ?? type.charAt(0).toUpperCase() + type.slice(1);
+const iconName = icon || ICON_NAME_BY_TYPE[type];
+
+
+// set to true to have all admonitions open right away - useful when writing
+let ALWAYS_OPEN = false;
+// ALWAYS_OPEN = true;
+
+const openProperties = {
+   ... ((open || ALWAYS_OPEN) && { open: true }),
+}
+---
+
+{
+  collapsible ? (
+    <details class={`admonition admonition-${type} collapsible`} {...openProperties}>
+      <summary class="admonition-heading">
+        <Icon name={iconName} size="24px"  class="admonition-icon-collapsible" />
+        <span class="admonition-title">{resolvedTitle}</span>
+      </summary>
+      <div class="admonition-content">
+        <slot />
+      </div>
+    </details>
+  ) : (
+    <aside aria-label="Note" class=`starlight-aside starlight-aside--${type}`>
+      <p class="starlight-aside__title" aria-hidden="true">
+          <Icon name={iconName} size="24px" />
+        {resolvedTitle}
+      </p>
+      <div class="starlight-aside__content">
+        <slot />
+      </div>
+    </aside>
+
+  )
+}
+
+<style>
+  /*
+   * the rapide theme has rounded corners for asides (0.5rem)
+   * and a 1px border
+   */
+  aside.starlight-aside {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+  }
+
+  /* Base styles matching Starlight's defaults */
+  .admonition {
+    border-width: 1px;
+    border-style: solid;
+    border-top-right-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+    margin: 1rem 0;
+  }
+
+  .admonition-heading {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    font-weight: 600;
+  }
+
+  .admonition-content {
+    padding: 0.75rem 1rem;
+  }
+
+  .admonition-icon-collapsible {
+    margin-right: 0.5rem;
+  }
+
+  /* Collapsible variations */
+  .admonition.collapsible {
+    padding: 0 !important;
+    overflow: hidden;
+
+    > summary {
+      display: flex;
+    }
+    .chevron {
+      width: 1em;
+      height: 1em;
+      margin-left: auto;
+      transition: transform 0.2s ease;
+    }
+
+    .admonition-heading::before {
+      margin-left: 20px;
+    }
+
+    &[open] .chevron {
+      transform: rotate(90deg);
+    }
+
+    .admonition-content {
+      padding: 0 1rem 1rem;
+    }
+
+    /* Match Starlight's color scheme */
+    &.admonition-note {
+      &.collapsible {
+        border-color: var(--sl-color-blue);
+      }
+      > summary {
+        background-color: var(--sl-color-blue-low);
+      }
+    }
+    &.admonition-tip {
+      &.collapsible {
+        border-color: var(--sl-color-purple);
+      }
+      > summary {
+        background-color: var(--sl-color-purple-low);
+      }
+    }
+    &.admonition-caution {
+      &.collapsible {
+        border-color: var(--sl-color-orange);
+      }
+      > summary {
+        background-color: var(--sl-color-orange-low);
+      }
+    }
+    &.admonition-danger {
+      &.collapsible {
+        border-color: var(--sl-color-red);
+      }
+      > summary {
+        background-color: var(--sl-color-red-low);
+      }
+    }
+  }
+
+  /* body .sl-markdown-content summary:not(:where(.not-content *))::before {
+    margin-inline: 100px !important;
+  } */
+</style>

@@ -1,0 +1,372 @@
+---
+title: (mise + uv) au lieu de (conda + pip)
+description: setup alternatif à conda avec mise
+---
+
+import { Image } from 'astro:assets'
+import { Tabs, TabItem } from '@astrojs/starlight/components'
+import { Steps } from '@astrojs/starlight/components'
+import Admonition from '@components/Admonition.astro'
+import SidebarToggle from '@components/SidebarToggle.astro'
+import LabeledLink from '@components/LabeledLink.astro'
+
+<SidebarToggle />
+
+<Admonition type="caution" title="setup expérimental">
+<img src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3anFnZnYza3hyZWJibW8zZzU4cjYwaWtvMHA5MjBvYWFjbzB0dXc5eiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/PPleene8JaXmqdI0BH/giphy.gif"
+width="100" alt="work in progress" style="float:right; margin: 0 0 0.5em 1em" data-zoom-off/>
+malheureusement, sur Windows **`mise` n'est pas compatible avec `git bash`** !  
+ce qui suit est donc à considérer comme un setup alternatif, et accessible aux étudiants avancés sur Mac et Linux;
+mais pour les étudiants sur Windows, on continuera à utiliser `conda` et `pip` pour le moment
+</Admonition>
+
+## propos
+
+### est-ce que `conda` c'est le top ?
+
+`conda` existe depuis très longtemps; c'est un avantage car il est très utilisé
+et donc bien connu, et relativement stable également  
+toutefois son âge commence à se faire sentir, et le développeur exigeant peut avoir
+envie d'utiliser des outils plus modernes qui auraient moins d'inconvénients
+
+quels inconvénients me direz-vous ? le principal est sans aucun doute **la lenteur !**  
+la création d'un environnement virtuel avec conda est une opération très lourde,
+du coup on prend facilement l'habitude .. de le faire le moins possible; or il
+se trouve qu'il existe à présent des **alternatives beaucoup plus efficaces**
+pour cela, et c'est le but ici
+
+### et `pip` alors ?
+
+c'est un peu la même histoire avec `pip`, il existe aujourd'hui des
+alternatives qui rendent en gros le même service, mais qui sont beaucoup plus efficaces
+
+### remplacer `conda` par `mise`
+
+à quoi nous sert `conda` finalement ?  
+essentiellement pour ce qui nous concerne, on s'en sert pour créer des
+environnements virtuels dans lesquels on peut mettre, par exemple `python-3.13`,
+ou `node-24`
+
+`mise` est un outil écrit en Rust, très rapide et moderne, qui permet de gérer
+les versions d'outils et de langages de programmation. Il remplace
+avantageusement `conda` pour installer différentes versions des langages de
+développement les plus répandus.
+
+la logique consiste à pouvoir dire par exemple  
+> dans le dossier `/un/dossier` (et ses descendants), si je tape `python` ça veut
+dire la version 3.14 et si je tape `node` ça veut dire la version 24
+
+et bien sûr on peut faire ça dans autant de dossiers qu'on veut  
+de cette façon, il suffit de changer de dossier pour changer de version !
+
+<Admonition title="pas tout à fait ça" type="caution" collapsible> en pratique
+on n'obtient ce comportement qu'après avoir aussi installé `direnv`; mais bon
+c'est l'idée générale tout de même </Admonition>
+
+### et `uv` pour remplacer `pip` ?
+
+`uv` quant à lui est spécifique à Python, il s'agit d'un gestionnaire de paquets
+Python ultra-rapide, écrit également en Rust; il offre une alternative beaucoup
+plus efficace à `pip` tout en restant compatible avec l'écosystème Python
+existant
+
+essentiellement `uv` va créer un environnement virtuel qui est associé, lui
+aussi, au dossier courant
+
+## pour les installer
+
+### `mise`
+
+<Admonition title="on installe" collapsible>
+<Tabs>
+
+<TabItem label="Windows" icon="seti:windows">
+
+<Steps>
+1. installer le runtime Visual C++
+   ```bash
+   # download the installer
+   curl -L -O https://aka.ms/vc14/vc_redist.x64.exe
+   # execute the installer
+   ./vc_redist.x64.exe
+   ```
+2. installer mise
+   ```bash
+   winget install jdx.mise
+   ```
+3. activer au démarrage du terminal  
+   par défaut `mise` ne supporte pas le combo `bash`+Windows, on va l'aider un peu
+   ```bash
+   curl -k https://intro.info-mines.paris/code/setup-mise.sh | bash
+   ```
+</Steps>
+</TabItem>
+
+<TabItem label="Mac" icon="apple">
+<Steps>
+1. installer
+   ```bash
+   curl https://mise.run | sh
+   ```
+2. activer au démarrage du terminal
+   ```bash
+   curl -k https://intro.info-mines.paris/code/setup-mise.sh | bash
+   ```
+</Steps>
+</TabItem>
+
+<TabItem label="Linux" icon="linux">
+<Steps>
+1. installer
+   ```bash
+   curl https://mise.run | sh
+   ```
+2. activer au démarrage du terminal
+   ```bash
+   curl -k https://intro.info-mines.paris/code/setup-mise.sh | bash
+   ```
+</Steps>
+</TabItem>
+
+</Tabs>
+</Admonition>
+
+<Admonition title="on vérifie mise (tous OS)" type="caution" collapsible>
+
+comme d'hab: n'oubliez pas de relancer un nouveau terminal
+
+```bash
+mise --version
+```
+</Admonition>
+
+### `uv`
+
+<Admonition title="on installe" collapsible>
+<Tabs>
+
+<TabItem label="Windows" icon="seti:windows">
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+</TabItem>
+
+<TabItem label="Mac" icon="apple">
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+</TabItem>
+
+<TabItem label="Linux" icon="linux">
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+</TabItem>
+
+</Tabs>
+</Admonition>
+
+<Admonition title="on vérifie uv (tous OS)" type="caution" collapsible>
+
+comme d'hab: n'oubliez pas de relancer un nouveau terminal
+
+```bash
+uv --version
+```
+</Admonition>
+
+## un exemple
+
+### ***&lt;tl;dr>***
+
+voyez la version longue ci-dessous, mais pour faire court:
+```bash
+mkdir monprojet
+cd monprojet
+
+mise use python@3.14
+uv init
+uv add numpy
+
+source .venv/bin/activate
+
+# et là tout baigne
+python --version
+python -c "import numpy; print(numpy.__version__)"
+```
+
+<Admonition title="choisir ses versions: `mise use`" collapsible>
+
+### mise use
+
+`mise` va
+- automatiquement installer les différents langages si besoin; il va les télécharger s'ils ne sont pas déjà sur la machine
+- créer un fichier `mise.toml` pour mémoriser ça
+
+```bash
+# on déclare qu'on a besoin de python-3.14
+mise use python@3.14
+# ce serait pareil pour node
+mise use node@24
+```
+
+pour voir où on en est
+```bash
+# optionnel: confirmer qu'on a bien maintenant la bonne version
+python --version
+# pour confirmer
+node --version
+# cette commande est très intéressante pour lister les différentes versions
+# déjà connues, et quelle sont celles en vigueur dans ce dossier
+mise ls
+# ou encore pour un langae donné
+mise ls python
+```
+</Admonition>
+
+
+<Admonition title="les dépendances: `uv add`" collapsible>
+
+### uv add
+
+au moins une fois il faut faire ceci; qui va - entre autres - créer le fichier
+`pyproject.toml` pour y ranger notamment les dépendances Python  
+
+```bash
+uv init
+```
+
+<Admonition title="à quoi sert pyproject.toml ?" collapsible>
+bon à savoir, ce fichier est également central pour le "packaging" de votre
+projet Python, donc c'est tout bénéf:)  
+notamment, puisque vous avez besoin de `numpy`, c'est sans doute qu'il faudra
+l'installer aussi pour les gens qui voudront ensuite utiliser votre code; autant
+ranger cette information quelque part...
+ </Admonition>
+
+une fois que c'est fait, avec la phrase suivante on va:
+- downloader les librairies, toujours si nécessaire i.e. seulement la première fois
+- les ajouter dans `pyproject.toml`
+
+```bash
+# déclarer les dépendances
+uv add numpy pandas matplotlib
+```
+</Admonition>
+
+<Admonition title="que mettre dans le repo git ?" collapsible>
+### avec `git`
+
+à ce stade il est recommandé de mettre dans le repo `git`:
+
+- `mise.toml`
+- `pyproject.toml`
+
+</Admonition>
+
+
+<Admonition title="et pour l'utiliser ?" collapsible>
+### mise install + uv sync
+
+de cette façon, si quelqu'un clone le repo git, voici comment il pourra mettre
+en place son environnement de dév:
+
+```bash
+git clone ..../monprojet.git
+cd monprojet
+
+# pour installer localement le bon python
+mise install
+# pour créer le venv avec les dépendances
+uv sync
+
+# ne pas oublier d'activer
+source .venv/bin/activate
+
+# et là on a installé numpy
+```
+</Admonition>
+
+## le prompt
+
+comme avec `conda`, il est **crucial d'avoir un prompt qui indique l'environnement
+actif**; si nécessaire
+<LabeledLink label="label-starship-setup" file="./1-1-installations">
+voyez ici la section sur le prompt `starship`
+</LabeledLink>
+
+## si vous voulez creuser
+
+### activate automatique ?
+
+un autre inconvénient avec `conda`, c'est la nécessité de faire explicitement le
+`conda activate` qui va bien, comme on l'a vu avec `uv` cette contrainte persiste
+
+il existe une alternative, `direnv`, qui permet d'automatiser l'activation de
+l'environnement; ça demande un peu de setup initial, mais le retour sur
+investissement est rapide !
+
+l'idée consiste à faire en sorte que l'activation soit déclenchée par un simple
+changement de dossier courant (un `cd`, quoi)
+
+<Admonition title="auto-activate avec direnv" collapsible>
+
+<Steps>
+1. installer `direnv`
+   ```bash
+   # macOS
+   brew install direnv
+   # Linux (Debian/Ubuntu)
+   sudo apt install direnv
+   # Windows (avec scoop)
+   winget install direnv.direnv
+   ```
+1. dans chaque projet où vous voulez l'utiliser, créer un fichier `.envrc` avec
+   le contenu suivant
+   ```bash
+   echo 'eval "$(mise hook direnv)"' > .envrc
+   ```
+1. puis, toujours dans chaque projet
+   ```bash
+   direnv allow
+   ```
+</Steps>
+
+ </Admonition>
+
+### config globale / projets imbriqués ?
+
+pour définir le comportement de la commande `python` en dehors des espaces
+`mise`, l'idée de faire un `mise use` dans son homedir **n'est pas la bonne
+idée** (voir les détails sordides ci-dessous)  
+au contraire il faut faire plus simplement
+
+```bash
+mise use -g python@3.14
+```
+
+<Admonition title="Attention aux espaces imbriqués !" type="caution" collapsible>
+
+avec `git` on peut facilement imbriquer les repos; pour savoir dans quel repo on
+est, `git` remonte dans le filesystem et s'arrête dès qu'il a trouvé un dossier
+`.git`
+
+on pourrait être tenté de faire la même chose avec `mise`, mais malheureusement
+**`mise` ne fonctionne pas comme ça !**  
+en pratique ça signifie qu'il faut configurer ses espaces `mise` comme des
+dossiers séparés, et ne pas en inclure un sous un autre  
+
+</Admonition>
+
+## références
+
+- [la doc de `mise`](https://mise.jdx.dev/getting-started.html)
+- [la doc de `uv`](https://github.com/astral-sh/uv)
+
+### influences
+
+voyez aussi ces différents outils qui ont certains comportements avec ceux-ci
+
+- `npm` pour l'idée d'installer les dépendances tout en les mémorisant dans `package.json`
+- `venv` qui est utilisé en sous-main par `uv` pour les environnements virtuels
+  Python (et qui n'existait pas à l'époque de `conda`)

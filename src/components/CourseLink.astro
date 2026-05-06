@@ -1,0 +1,17 @@
+---
+import { LinkCard } from "@astrojs/starlight/components"
+
+interface Props {
+    title: string
+    html: string
+    exo: boolean
+}
+
+const { title, html, exo } = Astro.props
+
+---
+{exo ? (
+    <div class="exo"><LinkCard title={title} href={html} target="_blank" /></div>
+) : (
+    <LinkCard title={title} href={html} target="_blank" />
+)}

@@ -1,0 +1,33 @@
+---
+import type { ImageMetadata } from 'astro'
+import { Image } from 'astro:assets'
+
+
+interface Props {
+    filename: string
+    alt?: string
+    width?: number
+    height?: number
+    loading?: 'lazy' | 'eager' | 'auto'
+}
+
+const { filename, alt, ...kwargs } = Astro.props
+const images = import.meta.glob<{ default: ImageMetadata }>('/src/media/*.{jpeg,jpg,png,gif,svg}')
+// console.log(images)
+const path = images[`/src/media/${filename}`]
+if (!path) {
+    throw new Error(`Image not found: ${filename}`)
+}
+const altText = alt || filename
+---
+
+{/*
+  without the wrapping element, we get a regular image that
+  doesn't zoom on click as reported here
+  https://github.com/HiDeoo/starlight-image-zoom/issues/37
+  the workaround is mentioned here
+  see https://github.com/HiDeoo/starlight-image-zoom/issues/16
+ */}
+<starlight-image-zoom-zoomable>
+    <Image src={path()} alt={altText} {...kwargs} />
+</starlight-image-zoom-zoomable>

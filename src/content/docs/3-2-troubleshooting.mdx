@@ -1,0 +1,205 @@
+---
+title: troubleshooting
+description: les erreurs les plus fréquentes lors des installations
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components'
+import Admonition from '@components/Admonition.astro'
+import SidebarToggle from '@components/SidebarToggle.astro'
+import LabeledAnchor from '@components/LabeledAnchor.astro'
+
+<SidebarToggle />
+
+les erreurs les plus fréquentes lors des installations
+
+si vous ne trouvez pas la réponse ici: **commencez par demander à google** en précisant bien votre contexte: le nom de l'OS, le logiciel qui ne fonctionne pas comme attendu, et le message d'erreur; il y a de très grandes chances que vous trouviez votre réponse sur `stackoverflow.com`
+
+dans tous les cas, essayez d'abord de trouver par vous même avant de demander de l'aide à vos camarades ou aux professeurs
+
+## `code: command not found`
+
+<LabeledAnchor label="label-troubleshoot-code-command-not-found" />
+
+<Admonition title="symptôme" type="danger">
+
+vous lancez `code` dans le terminal et ça vous dit `code: command not found`
+</Admonition>
+
+<Admonition title="solution" type="tip">
+
+tout d'abord, si vous êtes sur Mac, assurez-vous **de bien avoir copié votre application `Visual Studio Code` dans le dossier `Applications`**
+
+si c'est le cas, lancez vs-code par les menus  
+puis dans la palette (ctrl-shift-P sur Windows, command-shift-p sur mac)  
+trouvez la commande `shell command: install 'code' command in PATH`
+
+comme toujours, relancez un nouveau terminal et réessayez
+</Admonition>
+
+## `conda: command not found`
+
+<Admonition title="symptôme" type="danger">
+
+vous lancez `python` dans le terminal et ça vous dit `python: command not found`
+</Admonition>
+
+<Admonition title="l'idée" type="tip">
+
+L'idée c'est d'essayer de trouver où est installé conda, et de relancer à la main le `conda init bash` mais en lui indiquant le chemin complet
+
+<Tabs>
+<TabItem label="Windows" icon="seti:windows">
+
+si vous avez installé conda dans le dossier `C:\miniconda` comme recommandé,  
+essayez de taper cette commande dans un terminal tout neuf
+
+  ```bash
+  /c/miniconda/_conda.exe init bash
+
+  # ou bien, si ça échoue, sur certains systèmes il faut faire plutôt ceci
+  /c/miniconda/Scripts/conda init bash
+  ```
+  avant de lancer un nouveau terminal et de réessayer
+</TabItem>
+<TabItem label="Linux" icon="linux">
+si vous rencontrez ce problème sous linux, essayez de taper cette commande dans un terminal tout neuf
+```bash
+~/miniconda3/condabin/conda init bash
+```
+</TabItem>
+</Tabs>
+</Admonition>
+
+## `python: command not found`
+
+<LabeledAnchor label="label-troubleshoot-python-command-not-found" />
+
+<Admonition title="symptôme" type="danger">
+
+vous lancez `python` dans le terminal et ça vous dit `python: command not found`
+</Admonition>
+
+<Admonition title="solution 1" type="tip">
+
+tapez dans votre terminal
+
+```bash
+conda init bash
+```
+avant de lancer un nouveau terminal et de réessayer
+
+<Admonition title="sur mac" type="caution">
+
+  si vous êtes sur mac, il se peut que votre shell soit `zsh` et pas `bash`  
+  pas de souci pour suivre le cours avec `zsh` !  
+  mais par contre vous devez peut-être taper ici `conda init zsh`
+</Admonition>
+</Admonition>
+
+<Admonition title="solution 2" type="tip">
+
+si ce n'est pas cela, le plus probable est que vous n'avez pas bien coché la case `mettre à jour $PATH` lors de l'installation de miniconda; réinstallez, relancez un terminal, et réessayez
+</Admonition>
+
+## `ModuleNotFoundError: No module named 'bidule'`
+
+<LabeledAnchor label="label-troubleshoot-module-not-found" />
+
+<Admonition title="symptôme" type="danger">
+
+vous avez installé un module Python avec `pip` (n'importe lequel, disons `numpy`) depuis le terminal  
+**MAIS** depuis python, vous essayez de l'importer et il n'est pas trouvé...
+</Admonition>
+
+<Admonition title="solution" type="tip">
+
+dans 99% des cas, c'est parce que vous avez plusieurs environnements Python différents; vous installez dans un, et vous exécutez dans un autre...
+
+vérifiez bien des deux cotés de quel python il s'agit, en tapant par exemple `type python`  
+il faut bien sûr que ce soit le même python des deux cotés (à nouveau, là où vous installez et là où vous exécutez)
+<Admonition title="dans vs-code" type="note">
+
+souvenez-vous aussi que sous VS-code vous avez un menu pour, justement, choisir l'environnement Python à utiliser
+</Admonition>
+</Admonition>
+
+## le terminal démarre dans un dossier bizarre
+
+<LabeledAnchor label="label-troubleshoot-terminal-starts-in-weird-folder" />
+
+<Admonition title="symptôme" type="danger">
+sur Windows, quand vous lancez un terminal bash, il ne démarre dans votre homedir  
+</Admonition>
+
+<Admonition title="solution" type="tip">
+une cause fréquente de ce problème est lié au raccourci qu'on utilise pour lancer le terminal  
+**ne pas créer le raccourci à partir d'un programme en cours !**  
+la méthode fiable consiste à:
+
+1. éventuellement détruire le raccourci actuel
+2. ouvrir **le menu démarrer**
+3. taper `bash` pour trouver `Git Bash`
+4. faire un clic droit sur le raccourci et choisir `Pin to taskbar`
+</Admonition>
+
+vous pouvez aussi inspecter les *Properties* du raccourci, parmi lesquelles il y
+ a un réglage pour choisir dans quel dossier démarrer
+
+## `jupyter lab` n'ouvre pas de nouvelle fenêtre dans le browser
+
+<Admonition title="symptôme" type="danger">
+
+avec Windows: vous tapez `jupyter lab` dans le terminal, vous avez bien la
+litanie de messages qui s'affichent, mais ça ne crée pas une fenêtre dans le
+browser
+
+</Admonition>
+
+<Admonition title="solution 1" type="tip">
+
+il faut savoir d'abord que, parmi la dite litanie de messages il y a vers la fin
+quelque chose qui ressemble à
+```bash
+    To access the server, open this file in a browser:
+        file:///Users/tparment/Library/Jupyter/runtime/jpserver-44282-open.html
+    Or copy and paste one of these URLs:
+        http://localhost:8889/lab?token=d805f1f129d6f2a531f4bb6104050a894c656c91059fe464
+        http://127.0.0.1:8889/lab?token=d805f1f129d6f2a531f4bb6104050a894c656c91059fe464
+```
+
+la première solution consiste à copier-coller cette url, par exemple  
+`file:///Users/tparment/Library/Jupyter/runtime/jpserver-44282-open.html`  
+et d'ouvrir ça "à la main" dans le navigateur (ou encore, **pour aller plus vite**,
+vous enfoncez la touche Control et vous mettez le curseur de la souris sur le
+lien, ça devrait devenir souligné, et du coup cliquable)
+
+bon c'est pédestre mais ça peut vous débloquer pour commencer
+
+notez que si à ce stade on vous demande de choisir un navigateur, choisissez
+Chrome et confirmez que vous voulez **toujours utiliser Chrome pour l'extension
+html**  
+ça devrait régler le problème définitivement.
+
+</Admonition>
+
+<Admonition title="solution 2" type="tip">
+
+pour résoudre le problème plus en profondeur, je n'ai pas encore la solution universelle,  
+mais je vous recommande pour commencer de bien vous assurer que vous avez choisi Chrome comme navigateur par défaut
+
+à suivre donc - et si vous trouvez la solution dans votre cas spécifique, n'hésitez pas à la partager avec les enseignants..
+</Admonition>
+
+## ne peut pas lancer un programme Python depuis vs-code
+
+<Admonition title="symptôme" type="danger">
+
+avec Windows: vous essayez de lancer votre programme Python depuis vs-code, mais vous avez un message selon lequel avec PowerShell on ne peut pas changer d'environnement
+</Admonition>
+
+<Admonition title="solution" type="tip">
+
+puis dans la palette (ctrl-shift-P sur Windows, command-shift-P sur mac)  
+tapez `select default profile`  
+et choisissez `bash` plutôt que `PowerShell`
+</Admonition>

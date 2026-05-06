@@ -1,0 +1,185 @@
+---
+title: environnements virtuels
+description: comment gérer plusieurs environnements Python
+---
+
+import Admonition from '@components/Admonition.astro'
+import SidebarToggle from '@components/SidebarToggle.astro'
+import LabeledLink from '@components/LabeledLink.astro'
+
+<SidebarToggle />
+
+on voit ici comment créer de multiples environnements Python; ce n'est sans
+doute pas utile dans l'immédiat, mais cela vous sera peut-être utile bientôt...
+
+## à quoi ça sert ?
+
+on l'a mentionné un peu plus haut, cela peut être utile de créer plusieurs
+environnements Python différents; c'est utile notamment :
+
+* si vous travaillez sur plusieurs projets différents, qui ont chacun leur ensemble de
+  dépendances, pas forcément compatibles entre elles;
+  par exemple, l'un utilise Django-4.x et l'autre Django-3.x
+  ou même, l'un utilise python-3.13 et l'autre python-3.12
+
+* ou encore, lors de la sortie d'une nouvelle release de Python, que vous voulez essayer sans tout casser
+
+il existe plusieurs solutions pour gérer cela, notamment la solution `virtualenv`, mais
+nous allons pour notre part nous concentrer sur `miniconda`, puisque c'est ce qu'on a
+installé
+
+## miniconda
+
+c'est un des points forts de miniconda, que de permettre de facilement
+créer/activer/détruire des environnements multiples; on entend par environnement :
+
+* un socle `Python` accessible par les commandes `python` et `pip`
+* installé au départ sans aucune librairie tierce (enfin si, disons plutôt le strict
+  minimum, comme `pip`), pour que vous puissiez construire votre environnement de scratch
+
+les commandes utiles sont
+
+* `conda env list`
+* `conda create -n mon_environnement python=3.13`
+* `conda env remove -n mon_environnement`
+
+et pour gérer tout cela, on dispose de commandes pour changer d'environnement; le modèle
+mental est simple :
+
+* lorsque vous créez un terminal, vous êtes dans l'environnement qui s'appelle `base`,
+  c'est celui que vous avez utilisé jusqu'ici
+
+* vous pouvez passer dans un autre environnement avec  
+  `conda activate mon_environnement`  
+  qui a pour effet, entre autres, de modifier votre `PATH` pour que la commande `python`
+  soit cherchée ailleurs
+
+* pour en sortir, et revenir dans `base`, vous faites  
+  `conda deactivate`
+
+## le prompt
+
+vous remarquerez, dans l'exemple qui suit, comme le *prompt* bash reflète
+**l'environnement dans lequel on se trouve**  
+ça semble **relativement impératif** si on ne veut pas s'emmêler les pinceaux  
+surtout n'utilisez pas cette technologie si votre prompt ne montre pas l'environnement
+courant,  
+c'est beaucoup trop facile de se tirer une balle dans le pied si on n'a pas cet
+aide-mémoire en permanence sous les yeux !
+
+n'hésitez pas à installer <LabeledLink label="-starship-prompt" file="1-1-installations">
+un prompt plus sophistiqué, comme starship,
+</LabeledLink> qui vous donnera plein d'infos sur votre environnement courant
+et vous évitera de vous prendre les pieds dans le tapis !
+
+## exemple de session
+
+voici à titre indicatif une session sous MacOS pour illustrer tout ceci
+
+### la liste de mes environnements
+
+```bash
+[base] ~ $ conda env list
+conda environments:
+#
+base                  *  /Users/tparment/miniconda3
+<snip ...>
+```
+
+### j'en crée un nouveau avec Python-3.13
+
+```bash
+[base] ~ $ conda create -n demo-py313 python=3.13
+Collecting package metadata (current_repodata.json): done
+Solving environment: done
+<snip ...>
+```
+
+### on le voit
+
+```bash
+[base] ~ $ conda env list
+conda environments:
+#
+base                  *  /Users/tparment/miniconda3
+demo-py313                /Users/tparment/miniconda3/envs/demo-py313
+<snip...>
+```
+
+### pour entrer dans le nouvel environnement
+
+```bash
+[base] ~ $ conda activate demo-py313
+[demo-py313] ~ $
+```
+
+### les packages installés
+
+très peu de choses
+
+```bash
+[demo-py313] ~ $ pip list
+Package    Version
+---------- -------------------
+certifi    2020.4.5.1
+pip        20.0.2
+setuptools 46.2.0.post20200511
+wheel      0.34.2
+```
+
+### on y installe ce qu'on veut
+
+```bash
+[demo-py313] ~ $ pip install numpy==1.15.3
+```
+
+### la version de python
+
+```bash
+[demo-py313] ~ $ python --version
+Python 3.8.2
+```
+
+### sortir
+
+```bash
+[demo-py313] ~ $ conda deactivate
+[base] ~ $
+```
+
+### la version de python
+
+```bash
+[base] ~ $ python --version
+Python 3.7.6
+```
+
+### on n'a pas perturbé l'environnement de départ
+
+```bash
+[base] ~ $ pip show numpy
+Name: numpy
+Version: 1.18.1
+```
+
+### pour détruire l'environnement en question
+
+```bash
+[base] ~ $ conda env remove -n demo-py313
+
+Remove all packages in environment /Users/tparment/miniconda3/envs/demo-py313:
+```
+
+## exercice: de retour dans vs-code
+
+* créez un nouvel environnement miniconda avec Python-3.13
+* de retour dans vs-code, sélectionnez cet environnement
+
+notez que ce réglage est associé au *workspace* vs-code
+
+c'est quoi un *workspace* ? ça correspond en gros à la sauvegarde de l'état de l'éditeur
+lui-même : la liste des fichiers en cours d'édition, les onglets ouverts, etc…  
+
+pour expérimenter, créez une session vs-code dans un directory, choisissez votre
+environnement Python, sortez de la session; ré-ouvrez vs-code sur le même répertoire, vous
+devez retrouver ce réglage

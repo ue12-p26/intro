@@ -1,0 +1,84 @@
+---
+title: UE12/UE22
+description: on installe les ordis
+template: splash
+hero:
+  tagline: Bienvenue à MinesParis-PSL
+  image:
+    light: ../../media/logo-p25-light.excalidraw.svg
+    dark: ../../media/logo-p25-dark.excalidraw.svg
+---
+
+import { Card, CardGrid, Icon, LinkCard } from '@astrojs/starlight/components'
+import { Tabs, TabItem } from '@astrojs/starlight/components'
+
+import CourseLink from '@components/CourseLink.astro'
+
+
+
+<Card title="les supports de cours" icon="open-book" class="outline-courses">
+<Tabs>
+
+<TabItem label="Cours du S2" icon="open-book">
+	<CourseLink title="Web Frontend" html="https://frontend.info-mines.paris" />
+	<CourseLink title="Web Backend" html="https://backend.info-mines.paris" />
+	<CourseLink title="Backend: a sample FastAPI Notes App " html="https://backend-fastapi-notes.info-mines.paris" exo="true"/>
+	<CourseLink title="Backend: a sample Flask Chat App " html="https://backend-flask-chatapp.info-mines.paris" exo="true"/>
+	<CourseLink title="A PiXels War Game server" html="https://pixels-war.fly.dev" exo="true"/>
+
+
+
+les cours suivants seront annoncés ici ultérieurement; voyez aussi
+  <a href="https://github.com/orgs/ue22-p25/repositories" target="_">la liste des repos du S2 sur github</a>
+
+</TabItem>
+
+<TabItem label="Cours du S1" icon="open-book">
+
+	<CourseLink title="Python numérique (et données)" html="https://numerique.info-mines.paris" />
+	<CourseLink title="Une collection d'exercices autour de Python numérique" html="https://numerique-exos.info-mines.paris/" exo="true" />
+	<CourseLink title="Le cours sur git" html="https://git.info-mines.paris" />
+	<CourseLink title="Le cours sur Python avancé" html="https://python.info-mines.paris/" />
+
+    {/* <CourseLink title="Une collection d'exercices autour de Python" html="https://python-exos.info-mines.paris/" exo="true" /> */}
+
+{/*
+	<CourseLink title="Le cours C++" html="https://cpp.bmarchand.fr" />
+	<CourseLink title="Le cours Julia"
+		html="https://drive.google.com/drive/folders/1qSmdWM2Ze34PsVjGvCzLY5-19RP3Z6AQ?usp=sharing"
+	/>
+*/}
+
+
+les cours suivants seront annoncés ici ultérieurement; voyez aussi
+  <a href="https://github.com/orgs/ue12-p25/repositories" target="_">la liste des repos du S1 sur github</a>
+
+</TabItem>
+
+</Tabs>
+</Card>
+
+
+
+<Card title="mais pour commencer: les installations, et le béaba...">
+
+<CardGrid stagger>
+	<Card title="introduction" icon="information">
+		[Un peu de baratin.](/0-1-presentation-ue12-ue22)
+	</Card>
+	<Card title="les installations" icon="seti:config">
+		[C'est ici que ça se passe.](/1-1-installations)
+	</Card>
+	<Card title="comment on se sert des outils" icon="seti:python">
+		[C'est bien beau tout ça, mais comment on s'en sert&nbsp;?](/2-1-terminal-os)
+	</Card>
+	<Card title="compléments" icon="open-book">
+		[Quelques trucs en plus dans cette partie](/3-1-checklist).
+	</Card>
+</CardGrid>
+</Card>
+
+Licence CC BY-NC-ND, Thierry Parmentelat & Valérie Roy
+
+[![Déployé sur GitHub Pages](https://github.com/ue12-p25/intro/actions/workflows/astro-to-pages.yml/badge.svg)](https://github.com/ue12-p25/intro/actions/workflows/astro-to-pages.yml)
+[![Créé avec Starlight](https://astro.badg.es/v2/built-with-starlight/tiny.svg)](https://starlight.astro.build)

@@ -1,0 +1,82 @@
+---
+// src/components/SidebarToggle.astro
+
+interface Props {
+  persistent?: boolean; // Persist state in localStorage
+  initialOpen?: boolean; // Initial state
+}
+
+const { persistent = true, initialOpen = true } = Astro.props;
+---
+
+<style>
+  /* Global style override for sidebar */
+  :global(:root[data-sidebar-hidden]) {
+    --sl-sidebar-width: 0;
+    --sl-content-max-width: 100% !important;
+  }
+
+  /* Toggle button styling */
+  .sidebar-toggle {
+    position: sticky;
+    top: 60px;
+    margin-left: -30px;
+    z-index: 10000;
+    padding: 0.5rem;
+    background: var(--sl-color-bg-inline-code);
+    border: 2px solid var(--sl-color-border);
+    border-radius: var(--sl-border-radius-lg);
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+    opacity: 0.5;
+  }
+
+  .sidebar-toggle:hover {
+    opacity: 1;
+  }
+
+  /* Hide on mobile */
+  @media (max-width: 768px) {
+    .sidebar-toggle {
+      display: none;
+    }
+  }
+</style>
+
+<button class="sidebar-toggle" id="sidebar-toggle" aria-label="Toggle navigation">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="black">
+    <path d="M3 6h18M3 12h18M3 18h18"/>
+  </svg>
+</button>
+
+<script is:inline define:vars={{persistent, initialOpen}}>
+  (() => {
+    const STORAGE_KEY = 'sidebar-state';
+    const toggle = document.getElementById('sidebar-toggle');
+    const root = document.documentElement;
+
+    // Initialize state
+    let isHidden = localStorage.getItem(STORAGE_KEY) === 'true';
+    if (initialOpen) isHidden = false;
+
+    // Sync with DOM
+    function updateState() {
+      root.toggleAttribute('data-sidebar-hidden', isHidden);
+      root.toggleAttribute('data-has-sidebar', !isHidden);
+      root.toggleAttribute('data-has-toc', !isHidden);
+      toggle?.setAttribute('aria-expanded', !isHidden);
+      if (persistent) {
+        localStorage.setItem(STORAGE_KEY, isHidden.toString());
+      }
+    }
+
+    // Event listener
+    toggle?.addEventListener('click', () => {
+      isHidden = !isHidden;
+      updateState();
+    });
+
+    // First render
+    updateState();
+  })();
+</script>

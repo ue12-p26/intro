@@ -1,0 +1,153 @@
+---
+title: Cloner et lire le cours
+description: Comment récupérer et utiliser le contenu du cours
+---
+
+import ImageLoader from '@components/ImageLoader.astro'
+import Admonition from '@components/Admonition.astro'
+import SidebarToggle from '@components/SidebarToggle.astro'
+import LabeledAnchor from '@components/LabeledAnchor.astro'
+import LabeledLink from '@components/LabeledLink.astro'
+
+<SidebarToggle />
+
+
+Une fois que vous avez fait toutes les installations, la première chose que l'on va faire, c'est :
+
+* de *cloner* le cours, et
+* de s'assurer que vous pouvez lire les notebooks **localement sur votre ordi**
+
+C'est intéressant, d'abord pour vérifier que tout est bien en place (ce n'est pas grave si on ne vérifie pas forcément tout), et ce sera surtout utile pour le prochain cours puisque c'est comme cela que vous serez amené à travailler.
+
+<LabeledAnchor label="label-clone-course" />
+
+## Cloner le cours
+
+### Trouver la bonne URL
+
+À ce stade vous pouvez naviguer jusqu'au cours; pour cela, repartez de l'organisation qui va bien&nbsp;:
+
+<Admonition type="tip" title="Lien GitHub">
+https://github.com/ue12-p25/
+
+Allez éventuellement à l'onglet *Repositories*, cliquez sur le cours `intro`
+
+<ImageLoader filename="github-orga.png" />
+</Admonition>
+
+Dans cette page, on va aller copier l'URL du cours; pour cela suivez les instructions ci-dessous.
+
+<ImageLoader filename="github-choose-ssh.png" />
+
+une fois que vous aurez cliqué sur l'icône "copier-coller" (étape 3),  
+vous aurez copié **dans votre presse-papier la chaine `git@github.com:ue12-p25/intro.git`**  
+on va s'en servir tout de suite...
+
+<Admonition title="Vous ne voyez pas l'option 'SSH' ?" type="danger">
+vous n'êtes probablement pas connecté à GitHub, faites le "Sign in" en haut à droite et recommencez
+</Admonition>
+
+<Admonition title="https:// ?" type="danger">
+si vous avez un truc qui commence en `https://` c'est que vous n'avez pas bien choisi `SSH`
+</Admonition>
+
+<Admonition title="prenez toujours SSH !">
+
+à partir de maintenant, prenez l'habitude de toujours choisir le mode d'authentification *`SSH`* lorsque vous clônez un repo !
+</Admonition>
+
+### cloner le dépôt du cours
+
+et maintenant vous allez pouvoir cloner, c'est-à-dire copier, le dépôt du cours  
+il vous suffit pour ça de faire (lisez bien jusqu'au bout avant de copier-coller)
+
+```bash
+cd
+cd cours-info
+git clone # ... et ici vous collez le presse-papier
+          # ... ce qui donne
+git clone git@github.com:ue12-p25/intro.git
+```
+
+<Admonition title="mettez-vous dans le bon dossier">
+
+en faisant comme ça, le clone est créé dans un nouveau dossier `intro`  
+
+mais c'est important de **bien se mettre dans le bon dossier** avant de faire le `git clone`,
+car sinon le cours va bien être créé mais pas là où vous pensez...
+</Admonition>
+
+<Admonition title="un autre nom ?" collapsible>
+
+pourquoi ce nom `intro` pour le dossier clone ? il vient du `intro.git` que vous avez collé depuis github  
+pour choisir un autre nom que `intro` pour le dossier contenant le clone, faites par exemple
+
+```bash
+# pour que le clone se mette dans le dossier `installations`
+
+git clone git@github.com:ue12-p25/intro.git installations
+```
+</Admonition>
+
+<Admonition title="si ça échoue ?" collapsible>
+si vous n'arrivez pas à cloner le repo, il y a pas mal de documentation sur github, 
+[je vous propose de commencer avec ceci pour vérifier votre setup SSH](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/testing-your-ssh-connection)
+</Admonition>
+
+<Admonition title="on vérifie le clone" type="caution" collapsible>
+
+pour vérifier que tout s'est bien passé :
+
+```bash
+# aller dans le nouveau dossier clone
+cd intro
+
+# le répertoire est rempli avec la dernière version du cours
+cat README.md
+```
+</Admonition>
+
+<LabeledAnchor label="label-git-pull" />
+
+<Admonition title="suivre les évolutions futures" collapsible type="tip">
+
+enfin pour terminer cette micro-introduction:  
+imaginez que demain **le prof publie des modifications** dans ce dépôt
+
+alors pour mettre à jour votre dépôt local, il vous suffira de faire
+
+```bash
+# toujours dans le même dossier bien sûr
+
+git pull
+```
+
+qui va, c'est magique, **fusionner vos éventuelles modifications avec celles du prof** !  
+rassurez-vous, on creusera tout ceci dans le cours dédié à git dans quelques semaines
+</Admonition>
+
+## lire les notebooks
+
+le `git clone` a donc créé un dossier qui s'appelle `intro` dans lequel vous pouvez vous déplacer en faisant
+
+```bash
+# au cas où vous n'y seriez pas déjà
+cd ~/cours-info
+
+cd intro
+```
+
+et une fois dans le bon dossier vous tapez
+```bash
+jupyter lab
+```
+
+à ce stade on se contente de vérifier que cette commande ouvre un onglet dans votre navigateur web  
+vous trouverez <LabeledLink label="label-jupyter" file="2-4-jupyter">dans ce notebook</LabeledLink> plus de détails sur comment utiliser Jupyter
+
+## la checklist
+
+s'agissant de cette introduction, ça peut valoir la peine de consacrer 10
+minutes à **visionner une vidéo** qui montre comment tous ces outils s'utilisent
+en vrai; <LabeledLink label="label-checklist" file="3-1-checklist">vous la trouverez, ainsi qu'une liste de compétences, dans ce
+notebook</LabeledLink>

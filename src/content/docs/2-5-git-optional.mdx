@@ -1,0 +1,125 @@
+---
+title: git (optionnel)
+description: quelques mots sur git
+---
+
+import Admonition from '@components/Admonition.astro'
+import SidebarToggle from '@components/SidebarToggle.astro'
+
+<SidebarToggle />
+
+## à quoi ça sert ?
+
+à ce stade, nous utilisons `git` pour vous diffuser le code:
+
+- vous avez *clone* le dépôt sur votre ordi
+- si après ça le prof fait des changements dans le cours, vous pouvez facilement les intégrer dans votre ordi en faisant *pull*
+
+on consacrera du temps à l'étude de `git` dans un autre cours, on verra que ça sert à plein d'autres choses, mais n'anticipons pas...
+
+## digression : URL
+
+lorsque vous avez fait votre *clone*, vous avez dit à `git` quel dépôt vous vouliez copier  
+(souvenez-vous: vous avez copié une URL sur github, et vous l'avez collée dans le terminal)
+
+pour ça il a besoin [d'une URL (Uniform Resource
+Locator)](https://en.wikipedia.org/wiki/URL)
+
+<Admonition title="c'est quoi une URL ?" type="note">
+vous en connaissez déjà plein d'exemples, comme  
+- http://google.com/  
+- https://en.wikipedia.org/wiki/URL
+</Admonition>
+
+ça se lit comme ceci:
+
+* le premier terme (`http` ou `https`) désigne **le protocole** à utiliser pour joindre la
+  ressource
+
+* le second morceau (`google.com` ou `en.wikipedia.org`) désigne le *hostname* qu'il faut
+  joindre; en fait on utilise un service réseau [qui s'appelle le DNS (Domain Name
+  Server](https://en.wikipedia.org/wiki/Domain_Name_System) pour traduire le nom
+  `www.google.com` en une adresse réseau
+
+* la suite est optionnelle et permet de désigner un item particulier à l'intérieur de ce
+  serveur; c'est comme ça qu'on peut ranger des milliers de pages à l'intérieur du serveur
+  wikipedia
+
+## les URLs sur `github`
+
+à l'intérieur du serveur github, les URLs des dépôts ressemblent toutes à celles-ci
+
+* `https://github.com/python/cpython`: [https://github.com/python/cpython](https://github.com/python/cpython)
+* `https://github.com/gvanrossum/cpython`: [https://github.com/gvanrossum/cpython](https://github.com/gvanrossum/cpython) 
+
+et de manière générale:
+
+* le premier "étage" (`python` ou `gvanrossum`) désigne une **organisation** ou un **individu**
+  pour vos dépots par exemple, ce sera votre identifiant (on dit aussi *slug*) github
+
+* le second "étage" (`cpython`) désigne un dépôt  
+  (ici par exemple `cpython` pour l'implémentation classique du langage Python)
+
+<Admonition title="exercice" type="note">
+
+utilisez votre compte github pour:
+- aller sur la page de ce cours (l'orga est `ue12-p25` et le dépôt s'appelle `intro`)
+- trouvez le bouton pour créer un *fork*
+- en visitant votre propre page, constatez que vous avez maintenant un dépôt qui s'appelle `intro` dans votre propre espace *github*  
+</Admonition>
+
+## la config, comment ça marche ? 
+
+**pour les curieux** seulement, il y a deux niveaux de configuration
+
+1. `local`, limité au repo courant
+1. ou `global`, au contraire valable pour tous les repos
+
+il y a une commande `git config` qui permet d'inspecter la configuration  
+par défaut on regarde ou change la première famille, mais avec l'option `--global` on regarde la seconde
+
+### lire / vérifier un réglage
+
+pour vérifier (lire) la configuration, vous pouvez faire
+
+```bash
+# voir toute la config (locale + globale)
+git config -l
+# du coup pour voir seulement la config globale 
+git config -l --global
+# ou juste locale
+git config -l --local
+```
+
+et surtout pour vérifier la valeur d'**un** réglage, par exemple
+
+```bash
+git config user.name
+```
+
+### écrire / changer un réglage
+
+eh bien on l'a déjà fait plus haut  
+il suffit de décider si on veut ranger le réglage dans la zone locale ou globale  
+et se souvenir que la syntaxe c'est `git config param value`
+
+il faut juste comprendre que si vous aviez tapé
+
+```bash
+git config --global user.name Jean Mineur  # ne marche pas
+```
+
+ça n'aurait pas fonctionné car le shell (bash) ici aurait vu **deux paramètres** différents  
+et c'est pourquoi il faut mettre les `"` autour de `Jean Mineur` comme ceci
+
+```bash
+git config --global user.name "Jean Mineur"  # ok maintenant
+```
+
+### dans quels fichiers
+
+enfin si vous êtes vraiment curieux, sachez que les deux familles de config sont rangées dans
+
+* `.gitconfig` - dans votre *home directory* - pour la config globale
+* `.git/config` - à la racine du repo - pour la config locale
+le dépôt du cours

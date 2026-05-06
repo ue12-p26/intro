@@ -1,0 +1,39 @@
+:root {
+    --sl-content-width: 50rem;
+    --sl-text-5xl: 3.5rem;
+}
+
+.hero {
+	padding-bottom: 0px;
+    padding-top: 0px;
+}
+
+svg.inline-icon {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.course-link {
+    :last-child {
+        margin-left: 0.5em;
+        font-size: x-large;
+    }
+}
+
+.sidebar-toggle {
+    opacity: 50%;
+}
+
+/* thanks to
+   https://github.com/withastro/starlight/issues/721
+*/
+.MathJax svg {
+	display: inline !important;
+}
+
+article.card>div div[role="tabpanel"]      div.sl-link-card {
+    background-color: rgba(223, 247, 214, 0.2);
+}
+article.card>div div[role="tabpanel"] .exo div.sl-link-card {
+    background-color: rgba(205, 220, 243, 0.2);
+}
