@@ -26,10 +26,10 @@ export default defineConfig({
        logo: {
         light: "/src/media/logo-p26-light.excalidraw.svg",
         dark: "/src/media/logo-p26-dark.excalidraw.svg",
-        alt: "MinesParis PSL P25",
+        alt: "MinesParis PSL P26",
       },
       social: [
-        { icon: "github", label: "GitHub", href: "https://github.com/ue12-p25/intro" },
+        { icon: "github", label: "GitHub", href: "https://github.com/ue12-p26/intro" },
       ],
       plugins: [
         starlightThemeRapide(),
