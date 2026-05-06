@@ -24,8 +24,8 @@ export default defineConfig({
       title: "UE12/UE22 - Accueil",
       favicon: "media/favicon-p25.svg",
        logo: {
-        light: "/src/media/logo-p25-light.svg",
-        dark: "/src/media/logo-p25-dark.svg",
+        light: "/src/media/logo-p25-light.excalidraw.svg",
+        dark: "/src/media/logo-p25-dark.excalidraw.svg",
         alt: "MinesParis PSL P25",
       },
       social: [
