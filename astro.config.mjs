@@ -22,10 +22,10 @@ export default defineConfig({
   integrations: [
     starlight({
       title: "UE12/UE22 - Accueil",
-      favicon: "media/favicon-p25.svg",
+      favicon: "media/favicon-p26.svg",
        logo: {
-        light: "/src/media/logo-p25-light.excalidraw.svg",
-        dark: "/src/media/logo-p25-dark.excalidraw.svg",
+        light: "/src/media/logo-p26-light.excalidraw.svg",
+        dark: "/src/media/logo-p26-dark.excalidraw.svg",
         alt: "MinesParis PSL P25",
       },
       social: [
