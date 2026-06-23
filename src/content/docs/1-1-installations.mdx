@@ -929,6 +929,7 @@ git config --global alias.l "log --oneline --graph"
 git config --global alias.la "log --oneline --graph --all"
 git config --global alias.s "status"
 git config --global alias.ss "status --short --untracked-files=no"
+git config --global alias.root "rev-parse --show-toplevel"
 ````
 
 <Admonition title="à quoi ça sert ?" collapsible>
@@ -936,7 +937,7 @@ git config --global alias.ss "status --short --untracked-files=no"
 * avec `core.editor` on choisit vs-code comme éditeur (voir ci-dessous)
 * avec `init.defaultbranch` on indique que la branche initiale s'appelle `main`
 * avec `pull.rebase` on indique qu'on veut *merge* et non pas *rebase* lorsqu'on *pull*
-* avec les trois `alias` on définit des raccourcis; c'est comme ça par exemple qu'on pourra taper simplement  
+* avec les `alias` on définit des raccourcis; c'est comme ça par exemple qu'on pourra taper simplement  
   `git la`  
   au lieu de devoir taper  
   `git log --oneline --graph --all`
