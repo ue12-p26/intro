@@ -342,40 +342,53 @@ On y va. Le site est là [https://code.visualstudio.com/](https://code.visualstu
 Vous voulez installer donc il va falloir que vous alliez dans une section *download* ... vous la voyez ?  
 à vous de jouer maintenant
 
-  <Admonition title="Windows: toutes les options par défaut" collapsible>
+<Tabs>
 
-  pour les Windows: choisissez la version "User Installer" - comme ça vous n'aurez pas besoin des droits administrateur
-  
-  à nouveau vous prenez **toutes les options par défaut** (enfin, il faut accepter la licence, évidemment)  
-  ne vous laissez pas distraire par un message qui vous parlerait d'installer pour d'autres utilisateurs !
-  par défaut on fait une installation pour l'utilisateur courant, et c'est suffisant pour nous,
-  une installation pour tous les utilisateurs n'est pas nécessaire et n'apporte que des complications...
-  </Admonition>
+<TabItem label="Windows" icon="seti:windows">
+<Admonition title="toutes les options par défaut">
 
-  <Admonition title="pour les Mac: déplacez dans le dossier Applications !" collapsible>
+pour les Windows: choisissez la version "User Installer" - comme ça vous n'aurez pas besoin des droits administrateur
 
-  **Attention**
+à nouveau vous prenez **toutes les options par défaut** (enfin, il faut accepter la licence, évidemment)
 
-  on l'a signalé déjà rapidement, mais la bonne façon d'installer une appli sur MacOS en général 
-  est de la **glisser-déplacer dans le dossier `Applications`**
+ne vous laissez pas distraire par un message qui vous parlerait d'installer pour d'autres utilisateurs !
+par défaut on fait une installation pour l'utilisateur courant, et c'est suffisant pour nous,
+une installation pour tous les utilisateurs n'est pas nécessaire et n'apporte que des complications...
 
-  aussi une fois que vous aurez téléchargé, et double cliqué sur le zip, vous allez voir un fichier de type `.app`, **qui se trouve dans votre dossier `Downloads`**  
-  **il est impératif** de glisser-déplacer ce fichier dans le dossier `Applications`  
-  si on ne le fait pas, ça semble fonctionner, mais on a des tas de problèmes assez retors par la suite
+</Admonition>
+</TabItem>
 
-  </Admonition>
+<TabItem label="MacOS" icon="apple">
+<Admonition title="déplacez dans le dossier Applications !">
 
-  <Admonition title="Linux" collapsible>
+Attention
 
-    Pour info sur Linux - enfin plus spécifiquement, les distros comme Ubuntu - lorsque vous avez téléchargé un fichier `.deb`, vous pouvez l'installer avec la commande
-    suivante:
+on l'a signalé déjà rapidement, mais la bonne façon d'installer une appli sur MacOS en général 
+est de la **glisser-déplacer dans le dossier `Applications`**
 
-    ```bash
-    # on se met dans le dossier où on a téléchargé le fichier, sans doute ici
-    cd ~/Downloads
-    sudo dpkg -i nom_du_fichier.deb
-    ```
-  </Admonition>
+aussi une fois que vous aurez téléchargé, et double cliqué sur le zip, vous allez voir un fichier de type `.app`, **qui se trouve dans votre dossier `Downloads`**  
+**il est impératif** de glisser-déplacer ce fichier dans le dossier `Applications`  
+si on ne le fait pas, ça semble fonctionner, mais on a des tas de problèmes assez retors par la suite
+
+</Admonition>
+</TabItem>
+
+<TabItem label="Linux" icon="linux">
+<Admonition title="Comment utiliser un .deb">
+
+Pour info sur Linux - enfin plus spécifiquement, les distros comme Ubuntu - lorsque vous avez téléchargé un fichier `.deb`, vous pouvez l'installer avec la commande
+suivante:
+
+```bash
+# on se met dans le dossier où on a téléchargé le fichier, sans doute ici
+cd ~/Downloads
+sudo dpkg -i nom_du_fichier.deb
+```
+
+</Admonition>
+</TabItem>
+
+</Tabs>
 </Admonition>
 
 
