@@ -59,7 +59,8 @@ function cat-vscode-settings() {
 {
     "chat.disableAIFeatures": true,
     "workbench.secondarySideBar.defaultVisibility": "hidden",
-    "github.copilot.enable": { "*": false }
+    "github.copilot.enable": { "*": false },
+    "files.autoSave": "afterDelay"
 }
 EOF
 }
@@ -147,6 +148,7 @@ settings.update({
     "chat.disableAIFeatures": True,
     "workbench.secondarySideBar.defaultVisibility": "hidden",
     "github.copilot.enable": {"*": False},
+    "files.autoSave": "afterDelay",
 })
 
 with open(path, "w", encoding="utf-8") as f:
