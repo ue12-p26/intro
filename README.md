@@ -11,4 +11,4 @@ un peu plus sobre mais sans doute moins explicite
 aux cours d'informatique du 1er Semestre du Cycle des Ingénieurs Civils de
 l'École des Mines de Paris pour la promotion P26
 
-pour commencer vous êtes invités à bookmarker cette adresse, où se trouvent les supports: [https://intro.info-mines.paris](https://intro.info-mines.paris)
+pour commencer vous êtes invités à bookmarker cette adresse, où se trouvent les supports: [https://info-mines.paris](https://info-mines.paris)
