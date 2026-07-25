@@ -7,7 +7,7 @@ import rehypeMathjax from "rehype-mathjax"
 import remarkGfm from "remark-gfm"
 
 import starlightImageZoom from 'starlight-image-zoom'
-import starlightThemeRapide from 'starlight-theme-rapide'
+import starlightRosePine from 'starlight-theme-rose-pine'
 
 
 // https://astro.build/config
@@ -32,7 +32,7 @@ export default defineConfig({
         { icon: "github", label: "GitHub", href: "https://github.com/ue12-p26/intro" },
       ],
       plugins: [
-        starlightThemeRapide(),
+        starlightRosePine(),
         // for zoomable images
         starlightImageZoom(),
       ],
