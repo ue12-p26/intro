@@ -37,3 +37,7 @@ article.card>div div[role="tabpanel"]      div.sl-link-card {
 article.card>div div[role="tabpanel"] .exo div.sl-link-card {
     background-color: rgba(205, 220, 243, 0.2);
 }
+
+.blue {
+    color: blue;
+}
