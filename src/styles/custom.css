@@ -41,3 +41,7 @@ article.card>div div[role="tabpanel"] .exo div.sl-link-card {
 .blue {
     color: blue;
 }
+
+.outline {
+    color: red;
+}

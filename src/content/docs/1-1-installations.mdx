@@ -490,14 +490,14 @@ sudo dpkg -i nom_du_fichier.deb
 
 
   <Admonition title="download" collapsible>
-    Vous copiez les commandes suivantes dans un terminal bash
+    Vous copiez les commandes suivantes dans un terminal bash  
+    attention: **voyez l'étape suivante pour répondre aux questions**
 
     ```bash
     curl -k https://repo.anaconda.com/miniconda/Miniconda3-latest-Windows-x86_64.exe -o miniconda-installer.exe
     ./miniconda-installer.exe
     ```
 
-    et **voyez l'étape suivante pour répondre aux questions**
 
   </Admonition>
 
@@ -676,6 +676,8 @@ et on fait quoi pour vérifier ? on crée un **nouveau terminal** !
 
 <Admonition title="Pour désactiver les traits orientés IA">
 
+à taper dans un terminal bash:
+
 ```bash
 curl -k https://intro.info-mines.paris/code/setup-vscode.sh | bash
 ```
@@ -800,6 +802,22 @@ simplement en double-cliquant dessus
   ```bash
   jupyter --version
   ```
+  </Admonition>
+
+  <Admonition title="lancer (et sortir de) jupyter" collapsible type="caution">
+
+  on va maintenant le lancer:
+
+  ```bash
+  cd ~/cours-info
+  jupyter lab
+  ```
+
+observez que:
+  - votre terminal est à présent occupé (à faire tourner jupyter lab)
+  - apprenez à **toujours sortir par le menu *File* -> *Shutdown***
+  - et ainsi votre terminal redevient actif
+
   </Admonition>
 
   <Admonition title="les modules installés avec pip (optionnel)" collapsible type="caution">
@@ -956,8 +974,8 @@ git config --global init.defaultbranch main
 git config --global pull.rebase false
 git config --global alias.l "log --oneline --graph"
 git config --global alias.la "log --oneline --graph --all"
-git config --global alias.s "status"
-git config --global alias.ss "status --short --untracked-files=no"
+git config --global alias.st "status"
+git config --global alias.sts "status --short --untracked-files=no"
 git config --global alias.root "rev-parse --show-toplevel"
 ````
 
@@ -1130,7 +1148,7 @@ et là vous pouvez ajouter votre clé publique SSH:
 
 <LabeledAnchor label="label-install-nodejs" />
 
-## optionnels
+## gadgets optionnels
 
 ### 🔧 Git Graph Extension
 
