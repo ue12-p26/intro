@@ -80,7 +80,7 @@ function configure-vscode() {
     # otherwise we need to merge into the existing settings - use python
     local python=""
     local cmd
-    for cmd in python3 python py; do
+    for cmd in python python3 py; do
         type "$cmd" >& /dev/null && { python=$cmd; break; }
     done
     [[ -n "$python" ]] || {
