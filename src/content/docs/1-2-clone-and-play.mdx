@@ -14,7 +14,7 @@ import LabeledLink from '@components/LabeledLink.astro'
 
 Une fois que vous avez fait toutes les installations, la première chose que l'on va faire, c'est :
 
-* de *cloner* le cours, et
+* de *cloner* le cours de numerique, et
 * de s'assurer que vous pouvez lire les notebooks **localement sur votre ordi**
 
 C'est intéressant, d'abord pour vérifier que tout est bien en place (ce n'est pas grave si on ne vérifie pas forcément tout), et ce sera surtout utile pour le prochain cours puisque c'est comme cela que vous serez amené à travailler.
@@ -30,7 +30,7 @@ C'est intéressant, d'abord pour vérifier que tout est bien en place (ce n'est 
 <Admonition type="tip" title="Lien GitHub">
 https://github.com/ue12-p26/
 
-Allez éventuellement à l'onglet *Repositories*, cliquez sur le cours `intro`
+Allez éventuellement à l'onglet *Repositories*, cliquez sur le cours `numerique`
 
 <ImageLoader filename="github-orga.png" />
 </Admonition>
@@ -40,7 +40,7 @@ Dans cette page, on va aller copier l'URL du cours; pour cela suivez les instruc
 <ImageLoader filename="github-choose-ssh.png" />
 
 une fois que vous aurez cliqué sur l'icône "copier-coller" (étape 3),  
-vous aurez copié **dans votre presse-papier la chaine `git@github.com:ue12-p26/intro.git`**  
+vous aurez copié **dans votre presse-papier la chaine `git@github.com:ue12-p26/numerique.git`**  
 on va s'en servir tout de suite...
 
 <Admonition title="Vous ne voyez pas l'option 'SSH' ?" type="danger">
@@ -54,6 +54,12 @@ si vous avez un truc qui commence en `https://` c'est que vous n'avez pas bien c
 <Admonition title="prenez toujours SSH !">
 
 à partir de maintenant, prenez l'habitude de toujours choisir le mode d'authentification *`SSH`* lorsque vous clônez un repo !
+
+<Admonition title="comment ça marche SSH ?" collapsible>
+dans la phase d'installation, on a créé une paire de clés SSH et attaché la clé publique au compte github, 
+en utilisant SSH pour interagir avec github on utilise ce mode d'authentification
+à la fois très sécurisé et pratique (pas besoin d'entrer des mots de passe en permanence.)
+</Admonition>
 </Admonition>
 
 ### cloner le dépôt du cours
@@ -66,31 +72,31 @@ cd
 cd cours-info
 git clone # ... et ici vous collez le presse-papier
           # ... ce qui donne
-git clone git@github.com:ue12-p26/intro.git
+git clone git@github.com:ue12-p26/numerique.git
 ```
 
 <Admonition title="mettez-vous dans le bon dossier">
 
-en faisant comme ça, le clone est créé dans un nouveau dossier `intro`  
+en faisant comme ça, le clone est créé dans un nouveau dossier `numerique`  
 
 mais c'est important de **bien se mettre dans le bon dossier** avant de faire le `git clone`,
-car sinon le cours va bien être créé mais pas là où vous pensez...
+car sinon le cours va bien être créé mais pas là où vous voulez...
 </Admonition>
 
 <Admonition title="un autre nom ?" collapsible>
 
-pourquoi ce nom `intro` pour le dossier clone ? il vient du `intro.git` que vous avez collé depuis github  
-pour choisir un autre nom que `intro` pour le dossier contenant le clone, faites par exemple
+pourquoi ce nom `numerique` pour le dossier clone ? il vient du `numerique.git` que vous avez collé depuis github  
+pour choisir un autre nom que `numerique` pour le dossier contenant le clone, faites par exemple
 
 ```bash
 # pour que le clone se mette dans le dossier `installations`
 
-git clone git@github.com:ue12-p26/intro.git installations
+git clone git@github.com:ue12-p26/numerique.git cours-numerique
 ```
 </Admonition>
 
 <Admonition title="si ça échoue ?" collapsible>
-si vous n'arrivez pas à cloner le repo, il y a pas mal de documentation sur github, 
+si vous n'arrivez pas à cloner le repo, il y a pas mal de documentation sur github,
 [je vous propose de commencer avec ceci pour vérifier votre setup SSH](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/testing-your-ssh-connection)
 </Admonition>
 
@@ -100,7 +106,7 @@ pour vérifier que tout s'est bien passé :
 
 ```bash
 # aller dans le nouveau dossier clone
-cd intro
+cd numerique
 
 # le répertoire est rempli avec la dernière version du cours
 cat README.md
@@ -128,13 +134,13 @@ rassurez-vous, on creusera tout ceci dans le cours dédié à git dans quelques 
 
 ## lire les notebooks
 
-le `git clone` a donc créé un dossier qui s'appelle `intro` dans lequel vous pouvez vous déplacer en faisant
+le `git clone` a donc créé un dossier qui s'appelle `numerique` dans lequel vous pouvez vous déplacer en faisant
 
 ```bash
 # au cas où vous n'y seriez pas déjà
 cd ~/cours-info
 
-cd intro
+cd numerique
 ```
 
 et une fois dans le bon dossier vous tapez
