@@ -46,9 +46,10 @@ http https://releases.ubuntu.com/26.04.1/SHA256SUMS
 - [ ] Keyboard French
 - [ ] Connect to the internet (optionnel)
 - [ ] Install Ubuntu
-- [ ] Interactive installation
+- [ ] Accessibility: just pass to Next
 - [ ] Extended Selection
-- [ ] Proprietary : none
+- [ ] Interactive installation
+- [ ] Proprietary software: none
 - [ ] Erase disk and install
 - [ ] no encryption
 - [ ] Jean Mineur / password=jeanmineur
